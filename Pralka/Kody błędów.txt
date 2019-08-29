@@ -1,0 +1,70 @@
+//legenda:
+  //ujemne - b³¹d - poleconej czynnoœci nie wykonano
+  //dodatnie - czynnoœæ wykonana
+  //dwie pierwsze cyfry - numer elementu
+  //ostatnia cyfra - numer b³êdu
+  //ostatnia cyfra = 0 - wszystko poprawnie
+
+//Sterowanie::zablokujDrzwi() (11)
+-112 - nie mo¿na zablokowaæ drzwi - drzwi otwarte (chk_open)
+ 111 - drzwi ju¿ zablokowane (get_lck && !chk_open)
+ 110 - pomyœlnie zablokowano drzwi
+ 
+//Sterowanie::odblokujDrzwi() (12)
+-121 - nie mo¿na odblokowaæ drzwi - bêben siê krêci (zadana prêdkoœæ) (chk_rot && get_rot)
+-122 - nie mo¿na odblokowaæ drzwi - bêben siê krêci (zadany stop) (chk_rot && !get_rot)
+-123 - nie mo¿na odblokowaæ drzwi - w bêbnie jest woda (w³¹czone nalewanie) (chk_wti && get_wti)
+-124 - nie mo¿na odblokowaæ drzwi - w bêbnie jest woda (wy³¹czone nalewanie i wylewanie) (chk_wti && !get_wto && !get_wti)
+-125 - nie mo¿na odblokowaæ drzwi - w bêbnie jest woda (trwa wylewanie - pe³no wody) (chk_wti && !get_wti && get_wto)
+-126 - nie mo¿na odblokowaæ drzwi - w bêbnie jest woda (trwa wylewanie) (!chk_wti && chk_wto)
+-127 - nie mo¿na odblokowaæ drzwi - zablokowany odp³yw wody - w bêbnie mo¿e byæ woda (!chk_wti && !get_wto)
+ 128 - drzwi nie s¹ zablokowane (!get_lck)
+ 120 - pomyœlnie odblokowano drzwi
+ 
+//Sterowanie::wpompujWode() (8)
+  81 - nalewanie wody ju¿ trwa (get_wti())
+ -82 - nie mo¿na wpompowaæ wody - drzwi s¹ otwarte (!get_lck() && chk_opn())
+ -83 - nie mo¿na wpompowaæ wody - drzwi nie sa zablokowane (!get_lck() && !chk_opn())
+  80 - pomyœlnie rozpoczêto nalewanie wody
+  
+//Sterowanie::wypompujWode() (9)
+  90 - pomyœlnie otwarto odp³yw wody
+  91 - odp³yw wody jest ju¿ otwarty
+
+//Sterowanie::termostat() (7)
+ -71 - nie mo¿na w³¹czyæ grza³ki - otwarty jest odp³yw wody (get_wto())
+ -72 - nie mo¿na w³¹czyæ grza³ki - drzwi s¹ otwarte (!get_lck() && chk_opn())
+ -73 - nie mo¿na w³¹czyæ grza³ki - drzwi nie sa zablokowane (!get_lck() && !chk_opn())
+  70 - pomyœlnie ustawiono temperaturê grza³ki
+  
+//Sterowanie::krecBebnem() (6)
+ -61 - nie mo¿na krêciæ bêbnem - drzwi s¹ otwarte (!get_lck() && chk_opn())
+ -62 - nie mo¿na krêciæ bêbnem - drzwi nie sa zablokowane (!get_lck() && !chk_opn())
+  60 - pomyœlnie ustawiono prêdkoœæ bêbna
+  
+//Sterowanie::zatrzymajBeben() (5)
+  50 - bêben pomyœlnie zatrzymany
+  51 - bêben siê nie krêci
+  
+//Sterowanie::funkcja()
+  -1 - b³êdne wywo³anie funkcji (0-arg)
+  -2 - b³êdne wywo³anie funkcji (1-arg, char)
+  -3 - b³êdne wywo³anie funkcji (1-arg, double)
+  -5 - b³êdne wywo³anie funkcji (3-arg, bool)
+  
+//Sterowanie::checkDefault()
+  11 - drzwi s¹ zablokowane (get_lck())
+   8 - woda jest nalewana (get_wti())
+   9 - odp³yw wody jest zamkniêty (!get_wto())
+   7 - grza³ka nie jest wy³¹czona (get_tmp())
+   6 - bêben siê krêci (get_rot())
+  
+//Symulacja::wykonajFunkcje()
+  -4 - b³¹d w programie - nierozpoznane id
+
+//Programowanie::Programowanie()
+  -20 - nie mo¿na zaalokowaæ pamiêci
+//Programowanie::cmd_new()
+  -21 - nie mo¿na zaalokowaæ pamiêci
+//Programowanie::cmd_copy()
+  -22 - nie mo¿na zaalokowaæ pamiêci
